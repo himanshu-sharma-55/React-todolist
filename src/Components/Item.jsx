@@ -6,6 +6,7 @@ const Item = ({itemId, task, onDelete}) => {
     const handleDelete = (id) => {
         onDelete(id)
     }
+    
     const [isCheck, setCheck] = useState(false);
 
     const handleChange = () => {

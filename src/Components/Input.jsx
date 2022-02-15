@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
+import { useState } from "react";
+import React from "react-dom"
 import InputForm from './InputForm';
 import Item from './Item';
 import "./styles.css"
 
+import { useSelector, useDispatch } from 'react-redux';
+// import ItemOperations from '../Reducers/ItemOperations';
+import { addItem, removeItem } from '../Actions/index';
+
 function Input() {
 
-  const [array, setArray] = useState([{
-      id : 1,
-      task : "Demo"
-  }])
+  const ItemState = useSelector( (state) => state.ItemOperations);
+  const dispatch = useDispatch();
 
-  const AddElement = (event, input) => {
-    event.preventDefault();
+  const AddElement = (e, task) => {
 
-    console.log(event.target.task.value)
-    setArray([
-      {
-      id: array.length+1,
-      task: input  
-      }, ...array])
-    
+    e.preventDefault();
+
+    dispatch(addItem({
+      id : ItemState.length + 1,
+      task : task
+    }))
+  
   }
 
   const DeleteItem = (id) => {
 
-    setArray((prevList) => {
-        return prevList.filter( (item, index) => {
-            return item.id !== id;
-        })
-    })
+    dispatch(removeItem(id))
   }
 
   return(
@@ -37,7 +35,7 @@ function Input() {
       <InputForm addNewElement={AddElement} />
         
       <div id="taskList">
-        {array.map( item => <Item itemId={item.id} task={item.task} onDelete={DeleteItem} /> )}
+        {ItemState.map( item => <Item key={item.id} itemId={item.id} task={item.task} onDelete={DeleteItem} /> )}
       </div>
     </div>
   );
