@@ -1,6 +1,11 @@
 import {createStore} from "redux"
+import ItemOperations from "./Reducers/ItemOperations";
 
-import rootReducer from "./Reducers/index"
+import {combineReducers} from "redux";
+
+const rootReducer = combineReducers({
+    ItemOperations
+})
 
 const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import React from "react-dom"
 import InputForm from './InputForm';
 import Item from './Item';
